@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
@@ -37,7 +38,6 @@ void adicionarTarefa() {
 
     printf("\n       😄Tarefa criada com sucesso!!😄");
   }
-  
   // Neste bloco usuaria digitara manualmente
   else if (x == 2) {
     printf("\nDigite a nova data de início (formato dd/mm/aaaa): ");
@@ -194,29 +194,61 @@ void removerTarefa() {
   }
 }
 
+// Vai passa por toda a lista de tarefas ate encontra a primera tarefa vazia
 void quantasTarefas(int *c) {
   int cont = 0;
-
   for (int i = 0; i < numTarefas; i++) {
     if (listaTarefas[i].nome[0] != '\0') {
       cont++;
     }
   }
-  *c = cont;
+  *c = cont; // Por meio de um ponteiro vai modificar o valor para imprimir na
+             // main
+}
+
+void nomeTodasT() {
+  // Pecorrer o array de listaTarefas dando print apenas no nome da estrutura
+  printf("\n--------------------------------------------\n");
+  for (int i = 0; i < numTarefas; i++) {
+    printf("%d - %s\n", i + 1, listaTarefas[i].nome);
+  }
+  printf("--------------------------------------------\n");
+}
+
+int comparar(const void *a, const void *b) {
+  // Essa função define como o qsort vai ordena o array
+  struct tarefa *tarefaA = (struct tarefa *)a;
+  struct tarefa *tarefaB = (struct tarefa *)b;
+  return strcmp(tarefaA->nome, tarefaB->nome);
+}
+
+void ordena() {
+  //chamando a função e passandos os parametros necessarios para ordena o array
+  qsort(listaTarefas, numTarefas, sizeof(struct tarefa), comparar);
+  printf("\n--------------------------------------------\n");
+  puts("Lista de tarefas pos ordenação: ");
+  for (int i = 0; i < numTarefas; i++) {
+    printf("%d - %s\n", i+1, listaTarefas[i].nome);
+  }
+  printf("\n--------------------------------------------\n");
 }
 
 int main(void) {
   int x, y;
+  int flag;
 
   do {
     printf("\n\nBem vindo ao seu gerenciamento de tarefas 📄\n");
     puts("\nGostaria de:");
-    puts("(1)Adicionar➕");
-    puts("(2)Mudar Status✅");
-    puts("(3)Buscar🔎");
-    puts("(4)Editar🔩");
+    puts("(1)Adicionar ➕");
+    puts("(2)Mudar Status ✅");
+    puts("(3)Buscar 🔎");
+    puts("(4)Editar 🔩");
     puts("(5)Remover ❌");
-    puts("(6)Quantidade de tarefas atualmente🗂");
+    puts("(6)Nome de todas as tarefas 📚");
+    puts("(7)Quantidade de tarefas atualmente 🗂");
+    puts("(8)Ordena lista de tarefas por nome 🔀");
+    puts("(0)sair");
     scanf("%d", &x);
     getchar(); //é usado para limpar o buffer após a leitura
 
@@ -242,8 +274,23 @@ int main(void) {
       break;
 
     case 6:
+      nomeTodasT();
+      break;
+
+    case 7:
       quantasTarefas(&y);
       printf("\n       😄Atualmente tem %d tarefas!😄", y);
+      break;
+
+    case 8:
+      puts("\nDeseja continua? apos a ordenação não é possivel retorna!");
+      puts("(1) Para continua");
+      puts("(2) Para não");
+      scanf("%d", &flag);
+      getchar();
+      if (flag == 1){
+      ordena();
+      }
       break;
 
     default:
