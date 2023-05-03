@@ -34,9 +34,9 @@ void adicionarTarefa() {
             tm.tm_year + 1900); // Armazena a data formatada
 
     novaTarefa.dataTermino[0] = '\0'; // inicializa como vazio
-    novaTarefa.status[0] = '\0';      // Inicializa como vazio
+    strcpy(novaTarefa.status, "Em Progresso...");
 
-    printf("\n       😄Tarefa criada com sucesso!!😄");
+    printf("\n       😄Tarefa criada com sucesso!!😄\n");
   }
   // Neste bloco usuaria digitara manualmente
   else if (x == 2) {
@@ -74,8 +74,8 @@ void editarTarefa() {
       scanf("%s", listaTarefas[i].dataTermino);
 
       printf("\nDigite o novo status da tarefa: ");
-      scanf("%s", listaTarefas[i].status);
-
+      scanf("%[^\n]", listaTarefas[i].status);
+      getchar();
       printf("\n       😄Atualizado com sucesso!!😄");
 
       encontrou = 1;
@@ -113,6 +113,7 @@ void buscarTarefa() {
   if (!encontrou) {
     printf("\n       😐Tarefa não encontrada😐\n");
   }
+  printf("--------------------------------------------\n");
 }
 
 void mudarStatus() {
@@ -167,6 +168,7 @@ void mudarStatus() {
 
     printf("\n       😄Atualizado com sucesso!!😄");
   }
+  printf("\n--------------------------------------------\n");
   return;
 }
 
@@ -223,12 +225,12 @@ int comparar(const void *a, const void *b) {
 }
 
 void ordena() {
-  //chamando a função e passandos os parametros necessarios para ordena o array
+  // chamando a função e passandos os parametros necessarios para ordena o array
   qsort(listaTarefas, numTarefas, sizeof(struct tarefa), comparar);
   printf("\n--------------------------------------------\n");
   puts("Lista de tarefas pos ordenação: ");
   for (int i = 0; i < numTarefas; i++) {
-    printf("%d - %s\n", i+1, listaTarefas[i].nome);
+    printf("%d - %s\n", i + 1, listaTarefas[i].nome);
   }
   printf("\n--------------------------------------------\n");
 }
@@ -236,9 +238,8 @@ void ordena() {
 int main(void) {
   int x, y;
   int flag;
-
+  printf("\n\nBem vindo ao seu gerenciamento de tarefas 📄\n");
   do {
-    printf("\n\nBem vindo ao seu gerenciamento de tarefas 📄\n");
     puts("\nGostaria de:");
     puts("(1)Adicionar ➕");
     puts("(2)Mudar Status ✅");
@@ -279,7 +280,7 @@ int main(void) {
 
     case 7:
       quantasTarefas(&y);
-      printf("\n       😄Atualmente tem %d tarefas!😄", y);
+      printf("\n       😄Atualmente tem %d tarefas!😄 ", y);
       break;
 
     case 8:
@@ -288,8 +289,8 @@ int main(void) {
       puts("(2) Para não");
       scanf("%d", &flag);
       getchar();
-      if (flag == 1){
-      ordena();
+      if (flag == 1) {
+        ordena();
       }
       break;
 
