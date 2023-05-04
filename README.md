@@ -27,7 +27,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 Feito para ter um controle maior e simples das suas tarefas.
 
 <img src="./assets/0Menu.jpeg" alt="Exemplo de Imagem" width="300"><br>
--menu
+O menu possui sete opções para gerenciar tarefas, incluindo adicionar, mudar status, buscar, editar, remover, nome de todas as tarefas e quantidade de tarefas atualmente. O menu é fácil de navegar e permite ao usuário gerenciar suas tarefas de forma eficiente e organizada.
 <br>
 ##
 <img src="./assets/1Adicionar.jpeg" alt="Exemplo de Imagem" width="300"><br>
