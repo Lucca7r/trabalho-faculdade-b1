@@ -33,25 +33,32 @@ Feito para ter um controle maior e simples das suas tarefas.
 <img src="./assets/1Adicionar.jpeg" alt="Exemplo de Imagem" width="300"><br>
 
 <br>
+##
 <img src="./assets/2Status.jpeg" alt="Exemplo de Imagem" width="300"><br>
 
 <br>
+##
 <img src="./assets/3BuscarTarefa.jpeg" alt="Exemplo de Imagem" width="300"><br>
 
 <br>
+##
 
 <img src="./assets/4EditarTarefas.jpeg" alt="Exemplo de Imagem" width="300"><br>
 
 <br>
+##
 <img src="./assets/5RemoverTarefa.jpeg" alt="Exemplo de Imagem" width="300"><br>
 
 <br>
+##
 <img src="./assets/6NomeDTTarefas.jpeg" alt="Exemplo de Imagem" width="300"><br>
 
 <br>
+##
 <img src="./assets/7QuatidadeTarefas.jpeg" alt="Exemplo de Imagem" width="300"><br>
 
 <br>
+##
 <img src="./assets/8OrdenaTarefas.jpeg" alt="Exemplo de Imagem" width="300"><br>
 
 <br>
