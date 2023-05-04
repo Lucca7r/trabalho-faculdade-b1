@@ -74,7 +74,7 @@ void editarTarefa() {
       scanf("%s", listaTarefas[i].dataTermino);
 
       printf("\nDigite o novo status da tarefa: ");
-      scanf("%[^\n]", listaTarefas[i].status);
+      scanf("%s", listaTarefas[i].status);
       getchar();
       printf("\n       😄Atualizado com sucesso!!😄");
 
