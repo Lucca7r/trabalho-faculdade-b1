@@ -14,13 +14,111 @@ struct tarefa {
 struct tarefa listaTarefas[100];
 int numTarefas = 0; // Numero de tarefas atual
 
+void editarTarefa(int p) {
+  int definir;
+  int tamanho = 50;
+
+  printf("\nO que vc deseja alterar da tarefa: \n");
+  puts("(1) Nome da tarefa");
+  puts("(2) Data de inicio");
+  puts("(3) Data de término");
+  puts("(4) Status da tarefa");
+  scanf("%d", &definir);
+
+  switch (definir) {
+  case 1:
+    printf("\nDigite o novo nome da tarefa: \n");
+    getchar();
+    scanf("%[^\n]", listaTarefas[p].nome);
+    getchar();
+    printf("\n       😄Editado com sucesso!!😄\n");
+    break;
+
+  case 2:
+    printf("\nDigite a nova data de início (formato dd/mm/aaaa): ");
+    scanf("%s", listaTarefas[p].dataInicio);
+    printf("\n       😄Editado com sucesso!!😄\n");
+    getchar();
+    break;
+
+  case 3:
+    printf("\nDigite a nova data de término (formato dd/mm/aaaa): ");
+    scanf("%s", listaTarefas[p].dataTermino);
+    getchar();
+    printf("\n       😄Editado com sucesso!!😄\n");
+    break;
+
+  case 4:
+    printf("\nDigite o novo status da tarefa: ");
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF)
+      ; // Limpar o buffer de entrada
+    scanf("%[^\n]", listaTarefas[p].status);
+    getchar();
+    printf("\n       😄Editado com sucesso!!😄\n");
+    break;
+
+  default:
+    printf("\nOpção invalidade!\n");
+  }
+}
+
+void achaNome() {
+  char nomeTarefa[100];
+  int passa;
+  int encontrou = 0; // Flag para indicar se a tarefa foi encontrada ou não
+
+  printf("\nDigite o nome da tarefa que deseja editar: \n");
+  scanf("%[^\n]", nomeTarefa);
+  getchar();
+
+  // Aqui ele vai compara a nome digiado com o nome de todas tarefas salvas
+  for (int i = 0; i < numTarefas; i++) {
+    if (strcmp(listaTarefas[i].nome, nomeTarefa) == 0) {
+      passa = i;
+      editarTarefa(passa);
+      encontrou = 1;
+      break;
+    }
+  }
+  // caso tarefa nao encontrada
+  if (!encontrou) {
+    printf("\n       😐Tarefa não encontrada😐\n");
+  }
+}
+
+void ligacaoAdEd(int p) {
+  // Função de "ponte" para editar tarefas
+  int y;
+  printf("Deseja editar essa tarefa ja existente?\n");
+  puts("(1) Sim");
+  puts("(2) Não");
+  scanf("%d", &y);
+  getchar();
+
+  if (y == 1) {
+    editarTarefa(p);
+  } else {
+    return;
+  }
+}
+
 void adicionarTarefa() {
   struct tarefa novaTarefa;
-  int x;
+  int x, p;
   printf("\nDigite o nome da tarefa: ");
   scanf("%[^\n]", novaTarefa.nome);
   getchar(); // É usado para limpar o buffer após a leitura
 
+  // Verificar se já existe tarefa como aquele nome
+  for (int i = 0; i < numTarefas; i++) {
+    if (strcmp(listaTarefas[i].nome, novaTarefa.nome) == 0) {
+      printf("\n       ❌❌Já existe uma tarefa com esse nome❌❌\n\n");
+      p = i;
+      ligacaoAdEd(p);
+      return;
+    }
+  }
   // Exibir opção de inserir data inicial
   printf("\nDeseja adicionar a data de hoje ou quer inserir manualmente?\n");
   puts("\n(1) para de hoje\n(2) para manualmente: ");
@@ -50,41 +148,6 @@ void adicionarTarefa() {
   // Ter o controle de tarefas adicionadas na estrutura
   listaTarefas[numTarefas] = novaTarefa;
   numTarefas++;
-}
-
-void editarTarefa() {
-  char nomeTarefa[100];
-  int encontrou = 0; // Flag para indicar se a tarefa foi encontrada ou não
-
-  printf("\nDigite o nome da tarefa que deseja editar: \n");
-  scanf("%[^\n]", nomeTarefa);
-  getchar();
-
-  for (int i = 0; i < numTarefas; i++) {
-    // Aqui ele vai compara a nome digiado com o nome de todas tarefas salvas
-    if (strcmp(listaTarefas[i].nome, nomeTarefa) == 0) {
-      printf("\nDigite o novo nome da tarefa: ");
-      scanf("%[^\n]", listaTarefas[i].nome);
-      getchar();
-
-      printf("\nDigite a nova data de início (formato dd/mm/aaaa): ");
-      scanf("%s", listaTarefas[i].dataInicio);
-
-      printf("\nDigite a nova data de término (formato dd/mm/aaaa): ");
-      scanf("%s", listaTarefas[i].dataTermino);
-
-      printf("\nDigite o novo status da tarefa: ");
-      scanf("%s", listaTarefas[i].status);
-      getchar();
-      printf("\n       😄Atualizado com sucesso!!😄");
-
-      encontrou = 1;
-      break;
-    }
-  } // caso tarefa nao encontrada
-  if (!encontrou) {
-    printf("\n       😐Tarefa não encontrada😐\n");
-  }
 }
 
 void buscarTarefa() {
@@ -196,6 +259,18 @@ void removerTarefa() {
   }
 }
 
+void decidirRemover() {
+  int flag = 0;
+  puts("\nDeseja continua? apos excluir não é possivel recuperar!");
+  puts("(1) Sim");
+  puts("(2) Não");
+  scanf("%d", &flag);
+  getchar();
+  if (flag == 1) {
+    removerTarefa();
+  }
+}
+
 // Vai passa por toda a lista de tarefas ate encontra a primera tarefa vazia
 void quantasTarefas(int *c) {
   int cont = 0;
@@ -241,15 +316,15 @@ int main(void) {
   printf("\n\nBem vindo ao seu gerenciamento de tarefas 📄\n");
   do {
     puts("\nGostaria de:");
-    puts("(1)Adicionar ➕");
-    puts("(2)Mudar Status ✅");
-    puts("(3)Buscar 🔎");
-    puts("(4)Editar 🔩");
-    puts("(5)Remover ❌");
-    puts("(6)Nome de todas as tarefas 📚");
-    puts("(7)Quantidade de tarefas atualmente 🗂");
-    puts("(8)Ordena lista de tarefas por nome 🔀");
-    puts("(0)sair");
+    puts("(1) Adicionar ➕");
+    puts("(2) Mudar Status ✅");
+    puts("(3) Buscar 🔎");
+    puts("(4) Editar 🔩");
+    puts("(5) Remover ❌");
+    puts("(6) Nome de todas as tarefas 📚");
+    puts("(7) Quantidade de tarefas atualmente 🗂");
+    puts("(8) Ordena lista de tarefas por nome 🔀");
+    puts("(0) sair");
     scanf("%d", &x);
     getchar(); //é usado para limpar o buffer após a leitura
 
@@ -267,11 +342,11 @@ int main(void) {
       break;
 
     case 4:
-      editarTarefa();
+      achaNome();
       break;
 
     case 5:
-      removerTarefa();
+      decidirRemover();
       break;
 
     case 6:
@@ -281,12 +356,13 @@ int main(void) {
     case 7:
       quantasTarefas(&y);
       printf("\n       😄Atualmente tem %d tarefas!😄 ", y);
+      printf("\n--------------------------------------------\n");
       break;
 
     case 8:
       puts("\nDeseja continua? apos a ordenação não é possivel retorna!");
-      puts("(1) Para continua");
-      puts("(2) Para não");
+      puts("(1) Sim");
+      puts("(2) Não");
       scanf("%d", &flag);
       getchar();
       if (flag == 1) {
@@ -295,8 +371,9 @@ int main(void) {
       break;
 
     default:
-      printf("\n❌❌Errouuu tentou novamente❌❌\n");
+      printf("\n❌❌Errouuu❌❌\n");
     }
   } while (x != 0);
+  printf("Até mais...");
   return 0;
 }

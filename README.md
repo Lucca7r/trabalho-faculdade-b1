@@ -1,7 +1,8 @@
 <h1 align="center"> Gerenciador de tarefas </h1>
 
-<p align="center"> Uma sistema eficaz de gerencias suas tarefas do dia a dia. <br/>
-</p>
+
+<p align="center">
+<img src="./assets/capaReadme.png" alt="Exemplo de Imagem" width="500"><br>
 
 <p align="center">
   <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -124,6 +125,7 @@ A função ordena chama a função qsort, passando como parâmetros o array list
 <br>
 </p>
 
+<br>
 ## :wave: Licença
 
 Esse projeto está sob a licença MIT.
