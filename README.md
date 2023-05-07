@@ -126,6 +126,7 @@ A função ordena chama a função qsort, passando como parâmetros o array list
 </p>
 
 <br>
-## :wave: Licença
+
+## 👋 Licença
 
 Esse projeto está sob a licença MIT.
