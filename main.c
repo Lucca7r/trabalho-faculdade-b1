@@ -16,7 +16,6 @@ int numTarefas = 0; // Numero de tarefas atual
 
 void editarTarefa(int p) {
   int definir;
-  int tamanho = 50;
 
   printf("\nO que vc deseja alterar da tarefa: \n");
   puts("(1) Nome da tarefa");

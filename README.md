@@ -47,6 +47,17 @@ Por fim, a nova tarefa é adicionada à lista de tarefas listaTarefas e o númer
 <br>
 </p>
 
+<p align="center">
+<strong>2 FLUXO DE ADICIONAR</strong><br><br>
+<img src="./assets/2fAdicionar.jpeg" alt="Exemplo de Imagem" width="300"><br>
+Na função adicionarTarefa(), após solicitar ao usuário que digite o nome da tarefa, o programa verifica se já existe alguma tarefa salva com esse nome. Caso exista, a mensagem "Já existe uma tarefa com esse nome" será exibida e a função ligacaoAdEd(p) será chamada, passando como parâmetro o índice da tarefa encontrada na lista (p).
+
+Na função ligacaoAdEd(p), o usuário será perguntado se deseja editar a tarefa já existente. Se ele responder "Sim" (opção 1), a função editarTarefa(p) será chamada, passando como parâmetro o índice da tarefa na lista. Caso contrário, a função ligacaoAdEd(p) retornará sem fazer nada.
+
+Caso a tarefa não exista na lista, o programa continuará normalmente, e a nova tarefa será adicionada à lista como foi explicado acima.
+<br>
+</p>
+
 ##
 
 <p align="center">
